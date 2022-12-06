@@ -23,7 +23,7 @@ if __name__ == "__main__":
 
     player = Entity(
         Sprite("assets/character_designs/ragged_man.png", trans_c=(255, 255, 255), size=(16 * 3, 32 * 3)),
-        Position(start_x=SCREEN_WIDTH // 2, start_y=SCREEN_HEIGHT // 2),
+        Position(x=SCREEN_WIDTH // 2, y=SCREEN_HEIGHT // 2, z=1),
         Velocity(),
         Control(),
         VelocityDecay(decay=0.8)
@@ -41,12 +41,15 @@ if __name__ == "__main__":
 
     world_manager = WorldManager(player, size=(16 * 3, 16 * 3))
     new_tiles = world_manager.generate_initial_tiles()
+    old_tiles = []
 
     # main game loop
     running = True
     while running:
         if len(new_tiles) > 0:
             renderer.add_entities(new_tiles)
+        if len(old_tiles) > 0:
+            renderer.remove_entities(old_tiles)
 
         controller.update()
         movement_manager.update()

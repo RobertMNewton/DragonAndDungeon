@@ -11,12 +11,14 @@ class Renderer(Manager):
         self.sprites = []
         self.positions = []
 
+        self.render_order = []
+
     def update(self):
         """
         Render all sprites to screen surface
         :return:
         """
-        for i in range(len(self.ids)):
+        for i in self.render_order:
             self.screen.blit(self.sprites[i].surf, self.positions[i].get())
 
     def set_display(self, screen):
@@ -35,6 +37,26 @@ class Renderer(Manager):
             self.ids.append(entity.get_id())
             self.sprites.append(entity.get_component("sprite"))
             self.positions.append(entity.get_component("position"))
+
+            if len(self.render_order) > 0:
+                a = 0
+                b = len(self.render_order) - 1
+                z = self.positions[-1].z
+                while a < b:
+                    z_mid = self.positions[self.render_order[(a + b) // 2]].z
+                    if z < z_mid:
+                        b = b // 2
+                    elif z > z_mid:
+                        a = b // 2
+                    else:
+                        a = (a + b) // 2
+                        b = a
+                self.render_order.insert(a, len(self.render_order) - 1)
+            else:
+                self.render_order.append(0)
+
+    def recalculate_render_order(self):
+        pass
 
     def add_entities(self, entities):
         """
@@ -55,4 +77,13 @@ class Renderer(Manager):
             self.ids.pop(index)
             self.positions.pop(index)
             self.sprites.pop(index)
+
+            for i in range(index + 1, len(self.render_order)):
+                self.render_order[i] -= 1
+
+            self.render_order.pop(index)
+
+    def remove_entities(self, entities):
+        for entity in entities:
+            self.remove_entity(entity)
 
