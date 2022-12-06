@@ -45,7 +45,7 @@ if __name__ == "__main__":
             if event.type == pygame.QUIT:
                 running = False
         # FF00CA
-        test_surf = pygame.transform.scale(pygame.image.load("assets/grassland_example_map.png"), (SCREEN_WIDTH, SCREEN_HEIGHT))
+        test_surf = pygame.transform.scale(pygame.image.load("assets/grassland_example_map_2.png"), (SCREEN_WIDTH, SCREEN_HEIGHT))
         screen.blit(test_surf, (0, 0))
 
         controller.update()
