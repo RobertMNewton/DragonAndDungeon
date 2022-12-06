@@ -28,17 +28,19 @@ class WorldManager(Manager):
         added_tiles = []
         removed_tiles = []
 
-        x, y = self.player.get_component("position").get()
-
         tx = self.tx // 2 * 16
         ty = self.ty // 2 * 16
+
+        x, y = self.player.get_component("position").get()
+        x -= tx
+        y -= ty
 
         noise = self.get_noise((x - tx, y - ty), (x + tx, y + ty))
 
         for iy in range(self.ty):
             for ix in range(self.tx):
-                new_x = ix * self.size[0]
-                new_y = iy * self.size[1]
+                new_x = ix * self.size[0] + (x % (self.tx * 16 / 3)) - (16 * 2 * 3)
+                new_y = iy * self.size[1] + (y % (self.ty * 16 / 3)) - (16 * 2 * 3)
 
                 self.tiles[iy][ix].get_component("position").x = new_x
                 self.tiles[iy][ix].get_component("position").y = new_y

@@ -1,5 +1,6 @@
 import pygame
 from .manager import Manager
+from components.position import Position
 
 
 class Renderer(Manager):
@@ -36,7 +37,11 @@ class Renderer(Manager):
         if entity.has_component("position") and entity.has_component("sprite"):
             self.ids.append(entity.get_id())
             self.sprites.append(entity.get_component("sprite"))
-            self.positions.append(entity.get_component("position"))
+
+            if not entity.has_tag("player"):
+                self.positions.append(entity.get_component("position"))
+            else:
+                self.positions.append(Position(420 * 3 // 2, 320 * 3 // 2, 1))
 
             if len(self.render_order) > 0:
                 a = 0

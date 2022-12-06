@@ -28,6 +28,7 @@ if __name__ == "__main__":
         Control(),
         VelocityDecay(decay=0.5)
     )
+    player.add_tag("player")
 
     renderer = Renderer(screen)
 
