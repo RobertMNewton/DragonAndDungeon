@@ -7,6 +7,3 @@ class Position(Component):
 
         self.x = start_x
         self.y = start_y
-
-    def get_position(self):
-        return self.x, self.y

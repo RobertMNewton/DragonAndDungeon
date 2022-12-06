@@ -10,9 +10,3 @@ class Sprite(Component):
 
         self.surf = pygame.image.load(path_to_texture).convert()
         self.rect = self.surf.get_rect()
-
-    def get_surface(self):
-        return self.surf
-
-    def get_rect(self):
-        return self.rect

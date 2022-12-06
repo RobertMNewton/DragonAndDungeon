@@ -42,7 +42,7 @@ class Entity:
 
     def remove_component(self, name):
         """
-        :param name: string of name of ocmponent to remove
+        :param name: string of name of component to remove
         :return: None
         """
         if self.has_component(name):
