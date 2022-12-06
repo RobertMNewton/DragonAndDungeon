@@ -11,4 +11,12 @@ if __name__ == "__main__":
     # main game loop
     running = True
     while running:
-        pass
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+
+        window.fill((0, 170, 0))
+
+        pygame.display.flip()
+
+    pygame.quit()
