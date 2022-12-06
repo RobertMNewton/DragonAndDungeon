@@ -37,8 +37,8 @@ class WorldManager(Manager):
 
         for iy in range(self.ty):
             for ix in range(self.tx):
-                new_x = x + (ix * 16)
-                new_y = y + (iy * 16)
+                new_x = ix * self.size[0]
+                new_y = iy * self.size[1]
 
                 self.tiles[iy][ix].get_component("position").x = new_x
                 self.tiles[iy][ix].get_component("position").y = new_y

@@ -45,7 +45,8 @@ if __name__ == "__main__":
     # main game loop
     running = True
     while running:
-        renderer.add_entities(new_tiles)
+        if len(new_tiles) > 0:
+            renderer.add_entities(new_tiles)
 
         controller.update()
         movement_manager.update()
