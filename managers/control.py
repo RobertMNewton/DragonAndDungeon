@@ -1,9 +1,9 @@
 import pygame
-from .processor import Processor
-from pygame.locals import K_w, K_a, K_s, K_d, KEYDOWN, QUIT
+from .manager import Manager
+from pygame.locals import K_w, K_a, K_s, K_d
 
 
-class Controller(Processor):
+class Controller(Manager):
     def __init__(self, entity):
         super(Controller, self).__init__()
 

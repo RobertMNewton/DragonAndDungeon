@@ -1,7 +1,7 @@
-from .processor import Processor
+from .manager import Manager
 
 
-class MovementProcessor(Processor):
+class MovementProcessor(Manager):
     def __init__(self):
         super(MovementProcessor, self).__init__()
 
