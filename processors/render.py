@@ -11,17 +11,15 @@ class Renderer(Processor):
         self.sprites = []
         self.positions = []
 
-        self.num = 0
-
     def update(self):
         """
         Render all sprites to screen surface
         :return:
         """
-        for i in range(self.num):
-            self.screen.blit(self.sprites[i].surf, self.positions[i])
+        for i in range(len(self.ids)):
+            self.screen.blit(self.sprites[i].surf, self.positions[i].get())
 
-    def set_screen(self, screen):
+    def set_display(self, screen):
         """
         Set new screen surface
         :param screen:

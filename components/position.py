@@ -9,3 +9,6 @@ class Position(Component):
 
         self.x = start_x
         self.y = start_y
+
+    def get(self):
+        return self.x, self.y

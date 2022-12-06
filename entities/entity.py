@@ -24,7 +24,7 @@ class Entity:
         :param name: string
         :return: Entity component matching name parameter
         """
-        return self.components.get(name, default=None)
+        return self.components.get(name, None)
 
     def get_components(self):
         """

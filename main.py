@@ -17,8 +17,8 @@ if __name__ == "__main__":
     screen = pygame.display.set_mode(size=(SCREEN_WIDTH, SCREEN_HEIGHT))
 
     player = Entity(
-        Sprite("player.png", colour_key=(255, 255, 255)),
-        Position(start_x=SCREEN_WIDTH / 2, start_y=SCREEN_HEIGHT / 2),
+        Sprite("Assets/Character Designs/ragged_man.png", trans_c=(255, 255, 255), size=(16 * 3, 32 * 3)),
+        Position(start_x=SCREEN_WIDTH // 2, start_y=SCREEN_HEIGHT // 2),
         Velocity()
     )
 
