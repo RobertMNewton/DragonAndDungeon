@@ -6,7 +6,7 @@ if __name__ == "__main__":
     pygame.init()
 
     # create drawing window
-    window = pygame.display.set_mode(size=(1920, 1080))
+    screen = pygame.display.set_mode(size=(1920, 1080))
 
     # main game loop
     running = True
@@ -15,7 +15,7 @@ if __name__ == "__main__":
             if event.type == pygame.QUIT:
                 running = False
 
-        window.fill((0, 170, 0))
+        screen.fill((0, 170, 0))
 
         pygame.display.flip()
 
