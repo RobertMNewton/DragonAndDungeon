@@ -40,7 +40,7 @@ class Entity:
         :return: None
         """
         if not self.has_component(component.get_name()):
-            self.components.update(component.get_name(), component)
+            self.components[component.get_name()] = component
 
     def remove_component(self, name):
         """

@@ -8,6 +8,7 @@ from components.control import Control
 from managers.render import Renderer
 from managers.control import Controller
 from managers.movement import MovementProcessor
+from managers.world_manager import WorldManager
 
 
 if __name__ == "__main__":
@@ -38,19 +39,19 @@ if __name__ == "__main__":
 
     movement_manager.add_entity(player)
 
+    world_manager = WorldManager(player, size=(16 * 3, 16 * 3))
+    new_tiles = world_manager.generate_initial_tiles()
+
     # main game loop
     running = True
     while running:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                running = False
-        # FF00CA
-        test_surf = pygame.transform.scale(pygame.image.load("assets/grassland_example_map_2.png"), (SCREEN_WIDTH, SCREEN_HEIGHT))
-        screen.blit(test_surf, (0, 0))
+        renderer.add_entities(new_tiles)
 
         controller.update()
         movement_manager.update()
         renderer.update()
+
+        new_tiles, old_tiles = world_manager.update()
 
         pygame.display.flip()
 

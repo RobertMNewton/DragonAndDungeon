@@ -12,7 +12,7 @@ class WorldManager(Manager):
         self.player = player
         self.positions = []
 
-        self.tiles = None
+        self.tiles = []
 
         self.tx = 32
         self.ty = 22
@@ -40,10 +40,10 @@ class WorldManager(Manager):
                 new_x = x + (ix * 16)
                 new_y = y + (iy * 16)
 
-                self.tiles.get_component("position").get().x = new_x
-                self.tiles.get_component("position").get().y = new_y
+                self.tiles[iy][ix].get_component("position").x = new_x
+                self.tiles[iy][ix].get_component("position").y = new_y
 
-
+        return added_tiles, removed_tiles
 
     def add_entity(self, entity):
         if entity.has_tag("tile"):
@@ -72,8 +72,6 @@ class WorldManager(Manager):
         tile.add_component(Position(x, y))
         tile.add_component(Sprite(texture, trans_c=(255, 255, 255), size=self.size))
 
-        self.tiles.append(tile)
-
         return tile
 
     def generate_initial_tiles(self):
@@ -86,13 +84,15 @@ class WorldManager(Manager):
         noise = self.get_noise((x - (tx // 2), y - (ty // 2)), (x + (tx // 2), y + (ty // 2)))
 
         for iy in range(self.ty):
+            self.tiles.append([])
             for ix in range(self.tx):
-                texture = "assets/grass_grassy.png"
-                added_tiles.append(self.create_tile(x + (ix * 16), y + (iy * 16), texture))
+                texture = "assets/grassland_textures/grass_grassy.png"
+                tile = self.create_tile(x + (ix * 16), y + (iy * 16), texture)
+
+                added_tiles.append(tile)
+                self.tiles[-1].append(tile)
 
         return added_tiles
-
-
 
 
     def get_tiles(self):
@@ -100,5 +100,5 @@ class WorldManager(Manager):
 
     @staticmethod
     def get_noise(pos1, pos2):
-        return [[1 for _1 in range(pos2[0] - pos1[0])] for _2 in range(pos2[1] - pos2[1])]
+        return [[1 for _1 in range(int(pos2[0] - pos1[0]))] for _2 in range(int(pos2[1] - pos2[1]))]
 
