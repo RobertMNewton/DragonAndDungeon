@@ -6,6 +6,7 @@ from components.velocity import Velocity
 from components.control import Control
 from processors.render import Renderer
 from processors.control import Controller
+from processors.movement import MovementProcessor
 
 
 if __name__ == "__main__":
@@ -31,6 +32,10 @@ if __name__ == "__main__":
 
     controller = Controller(player)
 
+    movement_manager = MovementProcessor()
+
+    movement_manager.add_entity(player)
+
     # main game loop
     running = True
     while running:
@@ -41,8 +46,9 @@ if __name__ == "__main__":
         test_surf = pygame.transform.scale(pygame.image.load("test_map.png"), (SCREEN_WIDTH, SCREEN_HEIGHT))
         screen.blit(test_surf, (0, 0))
 
-        renderer.update()
         controller.update()
+        movement_manager.update()
+        renderer.update()
 
         pygame.display.flip()
 
