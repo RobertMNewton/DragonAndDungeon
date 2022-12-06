@@ -1,6 +1,6 @@
 class Processor:
     def __init__(self):
-        pass
+        self.ids = []
 
     def update(self):
         pass
