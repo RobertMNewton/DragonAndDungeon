@@ -10,15 +10,12 @@ class Controller(Processor):
         self.entity = entity
 
     def update(self):
-        for event in pygame.event.get():
-            if event.type == KEYDOWN:
-                if event.key == K_s:
-                    self.entity.get_component("velocity").y += 1
-                elif event.key == K_w:
-                    self.entity.get_component("velocity").y -= 1
-                elif event.key == K_d:
-                    self.entity.get_component("velocity").x += 1
-                elif event.key == K_a:
-                    self.entity.get_component("velocity").x -= 1
-            elif event.type == QUIT:
-                pygame.quit()
+        keys = pygame.key.get_pressed()
+        if keys[K_w]:
+            self.entity.get_component("velocity").y -= 1
+        if keys[K_s]:
+            self.entity.get_component("velocity").y += 1
+        if keys[K_d]:
+            self.entity.get_component("velocity").x += 1
+        if keys[K_a]:
+            self.entity.get_component("velocity").x -= 1

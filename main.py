@@ -3,6 +3,7 @@ from entities.entity import Entity
 from components.position import Position
 from components.sprite import Sprite
 from components.velocity import Velocity
+from components.velocity_decay import VelocityDecay
 from components.control import Control
 from processors.render import Renderer
 from processors.control import Controller
@@ -23,7 +24,8 @@ if __name__ == "__main__":
         Sprite("Assets/Character Designs/ragged_man.png", trans_c=(255, 255, 255), size=(16 * 3, 32 * 3)),
         Position(start_x=SCREEN_WIDTH // 2, start_y=SCREEN_HEIGHT // 2),
         Velocity(),
-        Control()
+        Control(),
+        VelocityDecay(decay=0.8)
     )
 
     renderer = Renderer(screen)
