@@ -12,10 +12,10 @@ class Controller(Manager):
     def update(self):
         keys = pygame.key.get_pressed()
         if keys[K_w]:
-            self.entity.get_component("velocity").y -= 1
+            self.entity.get_component("position").y -= 3
         if keys[K_s]:
-            self.entity.get_component("velocity").y += 1
+            self.entity.get_component("position").y += 3
         if keys[K_d]:
-            self.entity.get_component("velocity").x += 1
+            self.entity.get_component("position").x += 3
         if keys[K_a]:
-            self.entity.get_component("velocity").x -= 1
+            self.entity.get_component("position").x -= 3
