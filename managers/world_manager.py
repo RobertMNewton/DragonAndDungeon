@@ -1,3 +1,4 @@
+import random
 from .manager import Manager
 from entities.entity import Entity
 from components.position import Position
@@ -5,13 +6,16 @@ from components.sprite import Sprite
 
 
 class WorldManager(Manager):
-    def __init__(self, player, size=None):
+    def __init__(self, player, size=None, seed=None):
         super(WorldManager, self).__init__()
 
         self.player = player
         self.positions = []
 
         self.size = size
+
+        if not seed:
+            seed = random.random() * 10
 
     def update(self):
         for i in range(len(self.ids)):
