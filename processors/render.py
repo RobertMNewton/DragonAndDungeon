@@ -1,5 +1,5 @@
 import pygame
-from processor import Processor
+from .processor import Processor
 
 
 class Renderer(Processor):

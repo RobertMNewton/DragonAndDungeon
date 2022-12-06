@@ -3,6 +3,7 @@ from entities.entity import Entity
 from components.position import Position
 from components.sprite import Sprite
 from components.velocity import Velocity
+from processors.render import Renderer
 
 
 if __name__ == "__main__":
@@ -21,6 +22,10 @@ if __name__ == "__main__":
         Velocity()
     )
 
+    renderer = Renderer(screen)
+
+    renderer.add_entity(player)
+
     # main game loop
     running = True
     while running:
@@ -30,6 +35,8 @@ if __name__ == "__main__":
         # FF00CA
         test_surf = pygame.transform.scale(pygame.image.load("test_map.png"), (SCREEN_WIDTH, SCREEN_WIDTH))
         screen.blit(test_surf, (0, 0))
+
+        renderer.update()
 
         pygame.display.flip()
 
