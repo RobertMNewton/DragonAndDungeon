@@ -3,6 +3,7 @@ from entities.entity import Entity
 from components.position import Position
 from components.sprite import Sprite
 from components.velocity import Velocity
+from components.control import Control
 from processors.render import Renderer
 
 
@@ -19,7 +20,8 @@ if __name__ == "__main__":
     player = Entity(
         Sprite("Assets/Character Designs/ragged_man.png", trans_c=(255, 255, 255), size=(16 * 3, 32 * 3)),
         Position(start_x=SCREEN_WIDTH // 2, start_y=SCREEN_HEIGHT // 2),
-        Velocity()
+        Velocity(),
+        Control()
     )
 
     renderer = Renderer(screen)
@@ -33,7 +35,7 @@ if __name__ == "__main__":
             if event.type == pygame.QUIT:
                 running = False
         # FF00CA
-        test_surf = pygame.transform.scale(pygame.image.load("test_map.png"), (SCREEN_WIDTH, SCREEN_WIDTH))
+        test_surf = pygame.transform.scale(pygame.image.load("test_map.png"), (SCREEN_WIDTH, SCREEN_HEIGHT))
         screen.blit(test_surf, (0, 0))
 
         renderer.update()
