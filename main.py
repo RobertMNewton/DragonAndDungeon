@@ -6,4 +6,9 @@ if __name__ == "__main__":
     pygame.init()
 
     # create drawing window
-    window = pygame.display.set_mode(size=(512, 512))
+    window = pygame.display.set_mode(size=(1920, 1080))
+
+    # main game loop
+    running = True
+    while running:
+        pass
