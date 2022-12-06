@@ -26,7 +26,7 @@ if __name__ == "__main__":
         Position(x=SCREEN_WIDTH // 2, y=SCREEN_HEIGHT // 2, z=1),
         Velocity(),
         Control(),
-        VelocityDecay(decay=0.8)
+        VelocityDecay(decay=0.5)
     )
 
     renderer = Renderer(screen)
@@ -57,6 +57,10 @@ if __name__ == "__main__":
 
         new_tiles, old_tiles = world_manager.update()
 
+        if pygame.event.get(pygame.QUIT):
+            running = False
+
         pygame.display.flip()
+        pygame.event.pump()
 
     pygame.quit()
