@@ -5,6 +5,7 @@ from components.sprite import Sprite
 from components.velocity import Velocity
 from components.control import Control
 from processors.render import Renderer
+from processors.control import Controller
 
 
 if __name__ == "__main__":
@@ -28,6 +29,8 @@ if __name__ == "__main__":
 
     renderer.add_entity(player)
 
+    controller = Controller(player)
+
     # main game loop
     running = True
     while running:
@@ -39,6 +42,7 @@ if __name__ == "__main__":
         screen.blit(test_surf, (0, 0))
 
         renderer.update()
+        controller.update()
 
         pygame.display.flip()
 
