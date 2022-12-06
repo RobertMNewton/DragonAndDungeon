@@ -6,6 +6,8 @@ class Entity:
 
         self.components = {component.get_name(): component for component in components}
 
+        self.tags = []
+
     def get_id(self):
         """
         :return: Entity's Unique ID
@@ -47,3 +49,15 @@ class Entity:
         """
         if self.has_component(name):
             self.components.pop(name)
+
+    def get_tags(self):
+        return self.tags
+
+    def has_tag(self, name):
+        return name in self.tags
+
+    def add_tag(self, name):
+        self.tags.append(name)
+
+    def remove_tag(self, name):
+        self.tags.remove(name)
