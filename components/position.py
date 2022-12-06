@@ -1,4 +1,6 @@
-from component import Component
+from .component import Component
+
+
 class Position(Component):
     def __init__(self, start_x=0, start_y=0):
         super(Position, self).__init__()

@@ -1,5 +1,5 @@
 import pygame
-from component import Component
+from .component import Component
 
 
 class Sprite(Component):
