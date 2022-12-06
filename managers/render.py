@@ -1,8 +1,8 @@
 import pygame
-from .processor import Processor
+from .manager import Manager
 
 
-class Renderer(Processor):
+class Renderer(Manager):
     def __init__(self, screen):
         super(Renderer, self).__init__()
 

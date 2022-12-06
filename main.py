@@ -5,9 +5,9 @@ from components.sprite import Sprite
 from components.velocity import Velocity
 from components.velocity_decay import VelocityDecay
 from components.control import Control
-from processors.render import Renderer
-from processors.control import Controller
-from processors.movement import MovementProcessor
+from managers.render import Renderer
+from managers.control import Controller
+from managers.movement import MovementProcessor
 
 
 if __name__ == "__main__":
