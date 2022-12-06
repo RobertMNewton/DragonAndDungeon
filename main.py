@@ -21,7 +21,7 @@ if __name__ == "__main__":
     screen = pygame.display.set_mode(size=(SCREEN_WIDTH, SCREEN_HEIGHT))
 
     player = Entity(
-        Sprite("Assets/Character Designs/ragged_man.png", trans_c=(255, 255, 255), size=(16 * 3, 32 * 3)),
+        Sprite("assets/character_designs/ragged_man.png", trans_c=(255, 255, 255), size=(16 * 3, 32 * 3)),
         Position(start_x=SCREEN_WIDTH // 2, start_y=SCREEN_HEIGHT // 2),
         Velocity(),
         Control(),
@@ -45,7 +45,7 @@ if __name__ == "__main__":
             if event.type == pygame.QUIT:
                 running = False
         # FF00CA
-        test_surf = pygame.transform.scale(pygame.image.load("test_map.png"), (SCREEN_WIDTH, SCREEN_HEIGHT))
+        test_surf = pygame.transform.scale(pygame.image.load("assets/grassland_example_map.png"), (SCREEN_WIDTH, SCREEN_HEIGHT))
         screen.blit(test_surf, (0, 0))
 
         controller.update()
