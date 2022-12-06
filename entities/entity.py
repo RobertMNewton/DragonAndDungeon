@@ -7,27 +7,43 @@ class Entity:
         self.components = {component.get_name(): component for component in components}
 
     def get_id(self):
-        """Return unique id of this entities"""
+        """
+        :return: Entity's Unique ID
+        """
         return self._id
 
     def has_component(self, name):
-        """Return true if this entities has component with given name"""
+        """
+        :param name: string
+        :return: Whether entity has component matching name parameter
+        """
         return name in self.components.keys()
 
     def get_component(self, name):
-        """Return component of given name"""
+        """
+        :param name: string
+        :return: Entity component matching name parameter
+        """
         return self.components.get(name, default=None)
 
     def get_components(self):
-        """Returns dictionary of this entities's components"""
+        """
+        :return: Dictionary of entity's components
+        """
         return self.components
 
     def add_component(self, component):
-        """Add new component to this entities, returns True"""
+        """
+        :param component: Component to add
+        :return: None
+        """
         if not self.has_component(component.get_name()):
             self.components.update(component.get_name(), component)
 
     def remove_component(self, name):
-        """Remove component of given name from entities"""
+        """
+        :param name: string of name of ocmponent to remove
+        :return: None
+        """
         if self.has_component(name):
             self.components.pop(name)

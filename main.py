@@ -1,4 +1,9 @@
+import pygame
 
 
 if __name__ == "__main__":
-    print("You haven't coded anything you lazy shit! Fucking finish.")
+    # initialise pygame
+    pygame.init()
+
+    # create drawing window
+    window = pygame.display.set_mode(size=(512, 512))
