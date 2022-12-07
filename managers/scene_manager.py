@@ -13,6 +13,6 @@ class SceneManager(Manager):
         pass
 
     def initialise_scene(self, player):
-        self.scene.set_scene_data(self.world.get_location_data((-16 * 18, -16 * 13), (16 * 18, 16 * 13)))
+        self.scene.set_scene_data(self.world.get_location_data((-16 * 20, -16 * 20), (16 * 20, 16 * 20)))
         self.scene.add_entity(player)
 

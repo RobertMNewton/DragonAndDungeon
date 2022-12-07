@@ -26,13 +26,13 @@ class World:
         return self.create_tile(x, y, "assets/grassland_textures/grass_grassy.png")
 
     def create_tile(self, x, y, texture):
-            tile = Entity()
+        tile = Entity()
 
-            tile.add_tag("tile")
+        tile.add_tag("tile")
 
-            tile.add_component(Position(x, y))
-            tile.add_component(Sprite(texture, trans_c=(255, 255, 255)))
+        tile.add_component(Position(x, y))
+        tile.add_component(Sprite(texture, trans_c=(255, 255, 255)))
 
-            return tile
+        return tile
 
 
