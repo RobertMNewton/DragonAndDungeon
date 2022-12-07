@@ -15,11 +15,11 @@ class World:
     def get_location_data(self, pos1, pos2):
         data = []
         for iy in range(ceil(pos2[1]) - floor(pos1[1])):
-            data.append([])
             absolute_y = pos2[0] + (16 * iy)
             for ix in range(ceil(pos2[0]) - floor(pos1[0])):
                 absolute_x = pos1[0] + (16 * ix)
                 data.append(self.create_tile(absolute_x, absolute_y, "assets/grassland_textures/grass_grassy.png"))
+        return data
 
     def create_tile(self, x, y, texture):
             tile = Entity()

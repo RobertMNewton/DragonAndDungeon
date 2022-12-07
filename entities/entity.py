@@ -61,3 +61,13 @@ class Entity:
 
     def remove_tag(self, name):
         self.tags.remove(name)
+
+    def get_position(self, default=(0, 0, 0)):
+        if self.has_component('position'):
+            return self.get_component('position').x, self.get_component('position').y
+        return default
+
+    def get_sprite(self, default=None):
+        if self.has_component('sprite'):
+            return self.get_component('sprite').surf
+        return default

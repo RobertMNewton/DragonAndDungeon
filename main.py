@@ -40,7 +40,7 @@ if __name__ == "__main__":
     )
 
     scene_manager = SceneManager(scene, world)
-    scene_manager.initialise_scene()
+    scene_manager.initialise_scene(player)
 
     camera = Entity()
     camera.add_component(

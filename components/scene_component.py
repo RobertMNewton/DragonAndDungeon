@@ -23,7 +23,8 @@ class SceneComponent(Component):
         return self.render_order_keys
 
     def set_scene_data(self, data):
-        self.data = data
+        for entity in data:
+            self.add_entity(entity)
 
     def add_entity(self, entity):
         self.data.append(entity)
@@ -32,7 +33,7 @@ class SceneComponent(Component):
             self.render_order[z].append(len(self.data) - 1)
         else:
             self.render_order[z] = [len(self.data) - 1]
-            self.insert_depth_key()
+            self.insert_depth_key(z)
 
     def remove_entity(self, entity):
         z = int(entity.get_component("position").z)
