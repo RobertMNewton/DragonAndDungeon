@@ -26,14 +26,19 @@ class SceneComponent(Component):
         for entity in data:
             self.add_entity(entity)
 
-    def add_entity(self, entity):
+    def add_entity(self, entity, depth_key=None):
         self.data.append(entity)
-        z = int(entity.get_component("position").z)
-        if z in self.render_order.keys():
-            self.render_order[z].append(len(self.data) - 1)
+        if not depth_key:
+            z = int(entity.get_component("position").z)
+            if z in self.render_order.keys():
+                self.render_order[z].append(len(self.data) - 1)
+            else:
+                self.render_order[z] = [len(self.data) - 1]
+                self.insert_depth_key(z)
         else:
-            self.render_order[z] = [len(self.data) - 1]
-            self.insert_depth_key(z)
+            self.render_order[depth_key] = [len(self.data) - 1]
+            if depth_key != 'front':
+                self.insert_depth_key(depth_key)
 
     def remove_entity(self, entity):
         z = int(entity.get_component("position").z)

@@ -8,7 +8,7 @@ class CameraManager(Manager):
 
         self.camera = camera_entity.get_component('camera')
         self.scene = scene_entity.get_component('scene')
-        self.position = follow_entity.get_component('position')
+        self.follow_position = follow_entity.get_component('position')
 
         self.surface = pygame.surface.Surface(self.camera.view_size)
 
@@ -19,9 +19,9 @@ class CameraManager(Manager):
         self.scene = scene.get_component('scene')
 
     def update(self, clear=True):
-        self.camera.x = self.position.x
-        self.camera.y = self.position.y
-        self.camera.z = self.position.z
+        self.camera.x = self.follow_position.x
+        self.camera.y = self.follow_position.y
+        self.camera.z = self.follow_position.z
 
         if clear:
             self.surface.fill((0, 0, 0))

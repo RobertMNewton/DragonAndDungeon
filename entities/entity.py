@@ -71,3 +71,6 @@ class Entity:
         if self.has_component('sprite'):
             return self.get_component('sprite').surf
         return default
+
+    def __repr__(self):
+        return str(self._id)
