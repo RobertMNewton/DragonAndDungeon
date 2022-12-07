@@ -56,14 +56,13 @@ class SceneComponent(Component):
 
     def insert_depth_key(self, depth_key):
         if len(self.render_order_keys) >= 1:
-            a = 0
-            b = len(self.render_order_keys) - 1
-            while a < b:
-                i = (a + b) // 2
-                if self.render_order_keys[i] > depth_key:
-                    b = i
-                else:
-                    a = i
-            self.render_order_keys.insert(a, depth_key)
+            for i in range(len(self.render_order_keys)):
+                if i == len(self.render_order_keys) - 1:
+                    continue
+                elif self.render_order_keys[i] > depth_key and self.render_order_keys[i + 1] < depth_key:
+                    continue
+            self.render_order_keys.insert(i + 1, depth_key)
         else:
             self.render_order_keys.append(depth_key)
+
+        print(self.get_depth_keys())
