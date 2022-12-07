@@ -42,7 +42,7 @@ class CameraManager(Manager):
 
                 self.surface.blit(self.scene.data[i].get_sprite(), (render_x, render_y))
 
-            if depth_key > self.camera.get_position()[-1]:
+            if depth_key > self.camera.get_position(include_z=True)[-1]:
                 break
 
         for i in self.scene.get_front():

@@ -23,7 +23,7 @@ if __name__ == "__main__":
 
     player = Entity(
         Sprite("assets/character_designs/ragged_man.png", trans_c=(255, 255, 255), offset=(8, 8)),
-        Position(0, 0, 3),
+        Position(0, 0, 1),
         Velocity(),
         Control(),
         VelocityDecay(decay=0.5)
