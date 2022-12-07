@@ -1,9 +1,13 @@
 import pygame
 from .manager import Manager
+from constants import *
 
 
 class CameraManager(Manager):
-    def __init__(self, camera_entity, scene_entity, follow_entity):
+    """
+    Class to manage camera component and scene component
+    """
+    def __init__(self, camera_entity, scene_entity, follow_entity, world):
         super(CameraManager, self).__init__()
 
         self.camera = camera_entity.get_component('camera')
@@ -11,6 +15,8 @@ class CameraManager(Manager):
         self.follow_position = follow_entity.get_component('position')
 
         self.surface = pygame.surface.Surface(self.camera.view_size)
+
+        self.world = world
 
     def change_entity(self, entity):
         self.camera = entity.get_component('camera')
@@ -30,6 +36,7 @@ class CameraManager(Manager):
 
         for depth_key in self.scene.get_depth_keys():
             for i in self.scene.get_render_order(depth_key):
+                # compute scene updates, e.g. remove or replace tiles outside bounds
                 entity_x, entity_y = self.scene.data[i].get_position()
 
                 offset_x, offset_y = self.scene.data[i].get_component('sprite').offset
@@ -40,8 +47,37 @@ class CameraManager(Manager):
                 render_x = entity_x - cam_x
                 render_y = entity_y - cam_y
 
-                self.surface.blit(self.scene.data[i].get_sprite(), (render_x, render_y))
+                if render_x > RENDER_BOUNDS + VIEW_WIDTH:
+                    self.scene.data[i] = self.world.get_spot_data(
+                        (
+                            entity_x - VIEW_WIDTH - RENDER_BOUNDS,
+                            entity_y
+                        )
+                    )
+                elif render_x < -RENDER_BOUNDS:
+                    self.scene.data[i] = self.world.get_spot_data(
+                        (
+                            entity_x + VIEW_WIDTH + RENDER_BOUNDS,
+                            entity_y
+                        )
+                    )
+                elif render_y > VIEW_HEIGHT + RENDER_BOUNDS:
+                    self.scene.data[i] = self.world.get_spot_data(
+                        (
+                            entity_x,
+                            entity_y - VIEW_HEIGHT - RENDER_BOUNDS
+                        )
+                    )
+                elif render_y < -RENDER_BOUNDS:
+                    self.scene.data[i] = self.world.get_spot_data(
+                        (
+                            entity_x,
+                            entity_y + VIEW_HEIGHT + RENDER_BOUNDS
+                        )
+                    )
 
+                # render entity to camera's surface
+                self.surface.blit(self.scene.data[i].get_sprite(), (render_x, render_y))
             if depth_key > self.camera.get_position(include_z=True)[-1]:
                 break
 

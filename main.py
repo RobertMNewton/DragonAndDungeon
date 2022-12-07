@@ -53,7 +53,7 @@ if __name__ == "__main__":
         )
     )
 
-    camera_manager = CameraManager(camera, scene, player)
+    camera_manager = CameraManager(camera, scene, player, world)
 
     control_manager = Controller(player)
 

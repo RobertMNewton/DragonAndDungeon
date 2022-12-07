@@ -21,6 +21,10 @@ class World:
                 data.append(self.create_tile(absolute_x, absolute_y, "assets/grassland_textures/grass_grassy.png"))
         return data
 
+    def get_spot_data(self, pos):
+        x, y = pos
+        return self.create_tile(x, y, "assets/grassland_textures/grass_grassy.png")
+
     def create_tile(self, x, y, texture):
             tile = Entity()
 
