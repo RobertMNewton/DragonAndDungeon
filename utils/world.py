@@ -3,6 +3,7 @@ from math import ceil, floor
 from entities.entity import Entity
 from components.position import Position
 from components.sprite import Sprite
+from math import cos, sin
 
 
 class World:
@@ -24,7 +25,8 @@ class World:
     def get_spot_data(self, pos):
         x, y = pos
 
-        random.seed(self.seed * x + y)
+        random.seed(self.seed + cos(x) + sin(y) + x + y)
+
         roll = random.random()
         if roll < 0.75:
             return self.create_tile(x, y, "assets/grassland_textures/grass_grassy.png")
