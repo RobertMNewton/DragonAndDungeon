@@ -5,63 +5,74 @@ from components.sprite import Sprite
 from components.velocity import Velocity
 from components.velocity_decay import VelocityDecay
 from components.control import Control
-from managers.render import Renderer
+from components.camera import CameraComponent
+from components.scene_component import SceneComponent
+from managers.camera_manager import CameraManager
 from managers.control import Controller
 from managers.movement import MovementProcessor
-from managers.world_manager import WorldManager
+from managers.scene_manager import SceneManager
+from utils.world import World
+from constants import *
 
 
 if __name__ == "__main__":
     # initialise pygame
     pygame.init()
 
-    # create drawing window
-    SCREEN_WIDTH = 480 * 3
-    SCREEN_HEIGHT = 320 * 3
-
     screen = pygame.display.set_mode(size=(SCREEN_WIDTH, SCREEN_HEIGHT))
 
     player = Entity(
         Sprite("assets/character_designs/ragged_man.png", trans_c=(255, 255, 255), size=(16 * 3, 32 * 3)),
-        Position(x=SCREEN_WIDTH // 2, y=SCREEN_HEIGHT // 2, z=1),
+        Position(0, 0, 1),
         Velocity(),
         Control(),
         VelocityDecay(decay=0.5)
     )
     player.add_tag("player")
 
-    renderer = Renderer(screen)
+    world = World(seed=123)
 
-    renderer.add_entity(player)
+    scene = Entity()
+    scene.add_component(
+        SceneComponent(
+            SCENE_SIZE
+        )
+    )
 
-    controller = Controller(player)
+    scene_manager = SceneManager(scene, world)
+    scene_manager.initialise_scene()
+
+    camera = Entity()
+    camera.add_component(
+        CameraComponent(
+            player.get_component("position").x,
+            player.get_component("position").y,
+            player.get_component("position").z,
+            (SCREEN_WIDTH, SCREEN_HEIGHT),
+            (VIEW_WIDTH, VIEW_HEIGHT)
+        )
+    )
+
+    camera_manager = CameraManager(camera, scene)
+
+    control_manager = Controller(player)
 
     movement_manager = MovementProcessor()
-
     movement_manager.add_entity(player)
-
-    world_manager = WorldManager(player, size=(16 * 3, 16 * 3))
-    new_tiles = world_manager.generate_initial_tiles()
-    old_tiles = []
 
     # main game loop
     running = True
     while running:
-        if len(new_tiles) > 0:
-            renderer.add_entities(new_tiles)
-        if len(old_tiles) > 0:
-            renderer.remove_entities(old_tiles)
-
-        controller.update()
+        control_manager.update()
         movement_manager.update()
-        renderer.update()
-
-        new_tiles, old_tiles = world_manager.update()
+        scene_manager.update()
 
         if pygame.event.get(pygame.QUIT):
             running = False
 
+        screen.blit(camera_manager.update)
         pygame.display.flip()
+
         pygame.event.pump()
 
     pygame.quit()

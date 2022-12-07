@@ -4,6 +4,7 @@ from entities.entity import Entity
 from components.position import Position
 from components.sprite import Sprite
 
+
 class World:
     def __init__(self, seed=None):
         if not seed:
