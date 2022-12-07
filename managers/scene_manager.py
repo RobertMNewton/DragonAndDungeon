@@ -1,4 +1,5 @@
 from .manager import Manager
+from constants import *
 
 
 class SceneManager(Manager):
@@ -12,6 +13,6 @@ class SceneManager(Manager):
         pass
 
     def initialise_scene(self, player):
-        self.scene.set_scene_data(self.world.get_location_data((-16, -16), (16, 16)))
+        self.scene.set_scene_data(self.world.get_location_data((-(VIEW_WIDTH / 2) - 16, -(VIEW_HEIGHT / 2) - 16), (VIEW_WIDTH / 2 + 16, VIEW_HEIGHT / 2 + 16)))
         self.scene.add_entity(player)
 

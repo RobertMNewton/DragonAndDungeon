@@ -48,8 +48,8 @@ class CameraManager(Manager):
         for i in self.scene.get_front():
             entity_x, entity_y = self.scene.data[i].get_position()
 
-            render_x = entity_x - cam_x
-            render_y = entity_y - cam_y
+            render_x = cam_x - entity_x
+            render_y = cam_y - entity_y
 
             self.surface.blit(self.scene.data[i].get_sprite(), (render_x, render_y))
 
