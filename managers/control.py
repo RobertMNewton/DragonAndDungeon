@@ -15,12 +15,18 @@ class Controller(Manager):
         if keys[K_w]:
             self.entity.get_component("velocity").y -= PLAYER_SPEED
             self.entity.get_component("animation").set_animation("walk up")
-        if keys[K_s]:
+            self.entity.get_component("animation").unfreeze()
+        elif keys[K_s]:
             self.entity.get_component("velocity").y += PLAYER_SPEED
             self.entity.get_component("animation").set_animation("walk down")
-        if keys[K_d]:
+            self.entity.get_component("animation").unfreeze()
+        elif keys[K_d]:
             self.entity.get_component("velocity").x += PLAYER_SPEED
             self.entity.get_component("animation").set_animation("walk right")
-        if keys[K_a]:
+            self.entity.get_component("animation").unfreeze()
+        elif keys[K_a]:
             self.entity.get_component("velocity").x -= PLAYER_SPEED
             self.entity.get_component("animation").set_animation("walk left")
+            self.entity.get_component("animation").unfreeze()
+        else:
+            self.entity.get_component("animation").freeze()

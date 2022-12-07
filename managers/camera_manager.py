@@ -50,7 +50,7 @@ class CameraManager(Manager):
                 if render_x > RENDER_BOUNDS + VIEW_WIDTH:
                     self.scene.data[i] = self.world.get_spot_data(
                         (
-                            entity_x - VIEW_WIDTH - RENDER_BOUNDS - 16,
+                            entity_x - VIEW_WIDTH - RENDER_BOUNDS,
                             entity_y
                         )
                     )
@@ -65,7 +65,7 @@ class CameraManager(Manager):
                     self.scene.data[i] = self.world.get_spot_data(
                         (
                             entity_x,
-                            entity_y - VIEW_HEIGHT - RENDER_BOUNDS - 16
+                            entity_y - VIEW_HEIGHT - RENDER_BOUNDS
                         )
                     )
                 elif render_y < -RENDER_BOUNDS:
