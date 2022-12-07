@@ -10,7 +10,7 @@ class SceneComponent(Component):
         self.size = size
 
         self.data = []
-        self.render_order = {"back": [], "front": []}
+        self.render_order = {""front": []}
         self.render_order_keys = []
         self.offset = [0, 0]
 
@@ -20,8 +20,23 @@ class SceneComponent(Component):
     def get_front(self):
         return self.get_render_order("front")
 
-    def get_back(self):
-        return self.get_render_order("back")
-
     def get_depth_keys(self):
         keys = self.render_order_keys
+
+    def set_scene_data(self, data):
+        self.data = data
+
+    def add_entity(self, entity):
+        self.data.append(entity)
+        z = int(entity.get_component("position").z)
+        if z in self.render_order.keys():
+            self.render_order[z].append(len(self.data) - 1)
+        else:
+            self.render_order[z] = [len(self.data) - 1]
+
+    def remove_entity(self, entity):
+        z = int(entity.get_component("position").z)
+        if z in self.render_order_keys:
+            key = z
+        else:
+            if

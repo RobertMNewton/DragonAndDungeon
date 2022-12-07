@@ -86,16 +86,14 @@ class WorldManager(Manager):
         noise = self.get_noise((x - (tx // 2), y - (ty // 2)), (x + (tx // 2), y + (ty // 2)))
 
         for iy in range(self.ty):
-            self.tiles.append([])
             for ix in range(self.tx):
                 texture = "assets/grassland_textures/grass_grassy.png"
                 tile = self.create_tile(x + (ix * 16), y + (iy * 16), texture)
 
                 added_tiles.append(tile)
-                self.tiles[-1].append(tile)
+                self.tiles.append(tile)
 
         return added_tiles
-
 
     def get_tiles(self):
         return self.tiles
