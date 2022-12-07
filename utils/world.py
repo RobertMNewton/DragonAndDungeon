@@ -1,8 +1,8 @@
 import random
+from .terrain import Terrain
 from math import ceil, floor
 from entities.entity import Entity
 from components.position import Position
-from components.sprite import Sprite
 from math import cos, sin
 
 
@@ -27,23 +27,18 @@ class World:
 
         random.seed(self.seed + cos(x) + sin(y) + x + y)
 
-        roll = random.random()
-        if roll < 0.75:
-            return self.create_tile(x, y, "assets/grassland_textures/grass_grassy.png")
-        elif roll < 0.85:
-            return self.create_tile(x, y, "assets/grassland_textures/grass_rock_small.png")
-        elif roll < 0.95:
-            return self.create_tile(x, y, "assets/grassland_textures/grass_rock_cluster_2.png")
-        else:
-            return self.create_tile(x, y, "assets/grassland_textures/grass_rock_cluster_1.png")
+        roll = random.randint(0, len(Terrain.terrain_tiles) - 1)
 
-    def create_tile(self, x, y, texture):
+        return self.create_tile(x, y, Terrain.terrain_tiles[roll])
+
+
+    def create_tile(self, x, y, sprite):
         tile = Entity()
 
         tile.add_tag("tile")
 
         tile.add_component(Position(x, y))
-        tile.add_component(Sprite(texture, trans_c=(255, 255, 255)))
+        tile.add_component(sprite)
 
         return tile
 
