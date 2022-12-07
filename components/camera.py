@@ -16,6 +16,6 @@ class CameraComponent(Component):
 
     def get_position(self, include_z=False):
         if not include_z:
-            return self.x, self.y
+            return self.x - (self.view_size[0] // 2), self.y - (self.view_size[1] // 2)
         else:
             return self.x, self.y, self.z

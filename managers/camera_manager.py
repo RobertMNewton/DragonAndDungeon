@@ -32,6 +32,11 @@ class CameraManager(Manager):
             for i in self.scene.get_render_order(depth_key):
                 entity_x, entity_y = self.scene.data[i].get_position()
 
+                offset_x, offset_y = self.scene.data[i].get_component('sprite').offset
+
+                entity_x -= offset_x
+                entity_y -= offset_y
+
                 render_x = entity_x - cam_x
                 render_y = entity_y - cam_y
 

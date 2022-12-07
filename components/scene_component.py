@@ -64,5 +64,3 @@ class SceneComponent(Component):
             self.render_order_keys.insert(i + 1, depth_key)
         else:
             self.render_order_keys.append(depth_key)
-
-        print(self.get_depth_keys())
