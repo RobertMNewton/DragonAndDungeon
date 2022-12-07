@@ -3,11 +3,12 @@ from .manager import Manager
 
 
 class CameraManager(Manager):
-    def __init__(self, entity, scene):
+    def __init__(self, camera_entity, scene_entity, follow_entity):
         super(CameraManager, self).__init__()
 
-        self.camera = entity.get_component('camera')
-        self.scene = scene.get_component('scene')
+        self.camera = camera_entity.get_component('camera')
+        self.scene = scene_entity.get_component('scene')
+        self.position = follow_entity.get_component('position')
 
         self.surface = pygame.surface.Surface(self.camera.view_size)
 
@@ -18,6 +19,10 @@ class CameraManager(Manager):
         self.scene = scene.get_component('scene')
 
     def update(self, clear=True):
+        self.camera.x = self.position.x
+        self.camera.y = self.position.y
+        self.camera.z = self.position.z
+
         if clear:
             self.surface.fill((0, 0, 0))
 

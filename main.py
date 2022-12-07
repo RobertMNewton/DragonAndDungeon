@@ -45,15 +45,15 @@ if __name__ == "__main__":
     camera = Entity()
     camera.add_component(
         CameraComponent(
-            player.get_component("position").x,
-            player.get_component("position").y,
-            player.get_component("position").z,
+            0,
+            0,
+            0,
             (SCREEN_WIDTH, SCREEN_HEIGHT),
             (VIEW_WIDTH, VIEW_HEIGHT)
         )
     )
 
-    camera_manager = CameraManager(camera, scene)
+    camera_manager = CameraManager(camera, scene, player)
 
     control_manager = Controller(player)
 
