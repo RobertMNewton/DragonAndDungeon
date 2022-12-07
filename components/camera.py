@@ -13,3 +13,9 @@ class CameraComponent(Component):
 
         self.window_size = window_size
         self.view_size = view_size
+
+    def get_position(self, include_z=False):
+        if not include_z:
+            return self.x, self.y
+        else:
+            return self.x, self.y, self.z

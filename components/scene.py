@@ -9,6 +9,19 @@ class SceneComponent(Component):
 
         self.size = size
 
-        self.data = {"tile_data": [], "entity_data": []}
-        self.offset = (0, 0)
+        self.data = []
+        self.render_order = {"back": [], "front": []}
+        self.render_order_keys = []
+        self.offset = [0, 0]
 
+    def get_render_order(self, depth_key):
+        return self.render_order.get(depth_key, [])
+
+    def get_front(self):
+        return self.get_render_order("front")
+
+    def get_back(self):
+        return self.get_render_order("back")
+
+    def get_depth_keys(self):
+        keys = self.render_order_keys
