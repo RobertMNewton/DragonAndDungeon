@@ -6,6 +6,8 @@ class AnimationComponent(Component):
     def __init__(self):
         super(AnimationComponent, self).__init__()
 
+        self.name = 'animation'
+
         self.animations = {}
 
         self.frame = 0
@@ -15,6 +17,9 @@ class AnimationComponent(Component):
         self.animations[key] = []
         for path in paths:
             self.animations[key].append(pygame.image.load(path).convert())
+            self.animations[key][-1].set_colorkey((255, 255, 255))
+
+        self.key = key
 
     def next_frame(self):
         self.frame += 1
@@ -23,8 +28,7 @@ class AnimationComponent(Component):
 
         return self.animations[self.key][self.frame]
 
-    def new_animation(self, key):
-        self.key = key
-        self.frame = 0
-
-        return self.animations[self.key][self.frame]
+    def set_animation(self, key):
+        if key != self.key:
+            self.key = key
+            self.frame = -1

@@ -7,6 +7,8 @@ from components.velocity_decay import VelocityDecay
 from components.control import Control
 from components.camera import CameraComponent
 from components.scene_component import SceneComponent
+from components.animation_component import AnimationComponent
+from managers.animation_manager import AnimationManager
 from managers.camera_manager import CameraManager
 from managers.control import Controller
 from managers.movement import MovementProcessor
@@ -29,6 +31,45 @@ if __name__ == "__main__":
         VelocityDecay(decay=0.5)
     )
     player.add_tag("player")
+
+    player_animation = AnimationComponent()
+    player_animation.add_animation_from_paths(
+        "walk down",
+        [
+            "assets/dude/backwards_0.png",
+            "assets/dude/backwards_1.png",
+            "assets/dude/backwards_2.png"
+        ]
+    )
+    player_animation.add_animation_from_paths(
+        "walk up",
+        [
+            "assets/dude/forward_0.png",
+            "assets/dude/forward_1.png",
+            "assets/dude/forward_2.png"
+        ]
+    )
+    player_animation.add_animation_from_paths(
+        "walk left",
+        [
+            "assets/dude/left_0.png",
+            "assets/dude/left_1.png",
+            "assets/dude/left_2.png"
+        ]
+    )
+    player_animation.add_animation_from_paths(
+        "walk right",
+        [
+            "assets/dude/right_0.png",
+            "assets/dude/right_1.png",
+            "assets/dude/right_2.png"
+        ]
+    )
+
+    player.add_component(player_animation)
+
+    animation_manager = AnimationManager()
+    animation_manager.add_entity(player)
 
     world = World(seed=123)
 
@@ -64,6 +105,7 @@ if __name__ == "__main__":
     running = True
     while running:
         control_manager.update()
+        animation_manager.update()
         movement_manager.update()
         scene_manager.update()
 
