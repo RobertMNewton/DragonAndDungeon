@@ -20,7 +20,7 @@ class SceneComponent(Component):
         return self.get_render_order("front")
 
     def get_depth_keys(self):
-        keys = self.render_order_keys
+        return self.render_order_keys
 
     def set_scene_data(self, data):
         self.data = data

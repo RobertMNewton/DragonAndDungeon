@@ -19,11 +19,11 @@ class CameraManager(Manager):
 
     def update(self, clear=True):
         if clear:
-            self.surface.fill((0, 0, 0, 0), (0, 0))
+            self.surface.fill((0, 0, 0))
 
         cam_x, cam_y = self.camera.get_position()
 
-        for depth_key in self.scene.get_depth_keys:
+        for depth_key in self.scene.get_depth_keys():
             for i in self.scene.get_render_order(depth_key):
                 entity_x, entity_y = self.scene.data[i].get_position()
 

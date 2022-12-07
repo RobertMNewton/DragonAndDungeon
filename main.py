@@ -70,7 +70,7 @@ if __name__ == "__main__":
         if pygame.event.get(pygame.QUIT):
             running = False
 
-        screen.blit(camera_manager.update)
+        screen.blit(camera_manager.update(), (0, 0))
         pygame.display.flip()
 
         pygame.event.pump()

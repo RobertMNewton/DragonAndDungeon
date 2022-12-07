@@ -12,4 +12,4 @@ class SceneManager(Manager):
         pass
 
     def initialise_scene(self):
-        self.scene.set_data(self.world.get_location_data((-16, -16), (16, 16)))
+        self.scene.set_scene_data(self.world.get_location_data((-16, -16), (16, 16)))

@@ -10,7 +10,7 @@ class World:
         if not seed:
             self.seed = int(random() * 10E15)
         else:
-            self.seed = int(bytes(seed))
+            self.seed = seed
 
     def get_location_data(self, pos1, pos2):
         data = []
@@ -27,6 +27,6 @@ class World:
             tile.add_tag("tile")
 
             tile.add_component(Position(x, y))
-            tile.add_component(Sprite(texture, trans_c=(255, 255, 255), size=self.size))
+            tile.add_component(Sprite(texture, trans_c=(255, 255, 255)))
 
             return tile
