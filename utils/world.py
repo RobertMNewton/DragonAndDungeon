@@ -1,4 +1,5 @@
 import random
+import json
 from .terrain import Terrain
 from math import ceil, floor
 from entities.entity import Entity
@@ -13,6 +14,8 @@ class World:
         else:
             self.seed = seed
 
+        self.map_data = json.load(open("assets/dev_map/map.json", "r"))
+
     def get_location_data(self, pos1, pos2):
         data = []
         for iy in range((ceil(pos2[1]) - floor(pos1[1])) // 16):
@@ -25,11 +28,13 @@ class World:
     def get_spot_data(self, pos):
         x, y = pos
 
-        random.seed(self.seed + cos(x) + sin(y) + x + y)
+        z = "0"
 
-        roll = random.randint(0, len(Terrain.terrain_tiles) - 1)
-
-        return self.create_tile(x, y, Terrain.terrain_tiles[roll])
+        try:
+            sprite = Terrain.terrain_tiles_dict.get(self.map_data[z][str(x // 16)][str(y // 16)])
+            return self.create_tile(x, y, sprite)
+        except:
+            return self.create_tile(x, y, Terrain.null_tile)
 
 
     def create_tile(self, x, y, sprite):

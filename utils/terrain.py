@@ -16,12 +16,26 @@ class Terrain:
     grass_rock_tall = Sprite("assets/grassland_textures/grass_rock_tall.png", trans_c=(255, 255, 255))
     grass_skull = Sprite("assets/grassland_textures/grass_skull.png", trans_c=(255, 255, 255))
 
+    null_tile = Sprite("assets/cave_textures/cobble_natural_mossy_skull.png", trans_c=(255, 255, 255))
+
 
     # terrain tiles organised as list
-    terrain_tiles = \
+    terrain_tiles_list = \
     [
         grass, grass_path_1, grass_path_2, grass_path_corner_1, grass_path_corner_2, grass_path_corner_3,
         grass_path_corner_4, grass_rock_big, grass_rock_cluster_1, grass_rock_cluster_2, grass_rock_small,
         grass_rock_tall, grass_skull
     ]
 
+
+    # terrain tiles organised in dictionary
+    terrain_tiles_dict = \
+    {
+        "grass": grass,
+        "grass_path_1": grass_path_1,
+        "grass_path_2": grass_path_2,
+        "grass_path_corner_1": grass_path_corner_1,
+        "grass_path_corner_2": grass_path_corner_2,
+        "grass_path_corner_3": grass_path_corner_3,
+        "grass_path_corner_4": grass_path_corner_4
+    }
