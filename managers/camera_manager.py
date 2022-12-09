@@ -39,10 +39,11 @@ class CameraManager(Manager):
                 # compute scene updates, e.g. remove or replace tiles outside bounds
                 entity_x, entity_y = self.scene.data[i].get_position()
 
-                offset_x, offset_y = self.scene.data[i].get_component('sprite').offset
+                if self.scene.data[i].has_component('spirte'):
+                    offset_x, offset_y = self.scene.data[i].get_component('sprite').offset
 
-                entity_x -= offset_x
-                entity_y -= offset_y
+                    entity_x -= offset_x
+                    entity_y -= offset_y
 
                 render_x = entity_x - cam_x
                 render_y = entity_y - cam_y
@@ -77,7 +78,8 @@ class CameraManager(Manager):
                     )
 
                 # render entity to camera's surface
-                self.surface.blit(self.scene.data[i].get_sprite(), (render_x, render_y))
+                if self.scene.data[i].has_component('sprite'):
+                    self.surface.blit(self.scene.data[i].get_sprite(), (render_x, render_y))
             if depth_key > self.camera.get_position(include_z=True)[-1]:
                 break
 

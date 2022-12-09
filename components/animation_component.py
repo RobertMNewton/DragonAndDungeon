@@ -10,12 +10,11 @@ class AnimationComponent(Component):
 
         self.animations = {}
 
-        self.frame_time = 12
+        self.t = 0
+        self.dt = 150
         self.frame = 0
 
         self.frozen = True
-
-        self.sprite_frame = 0
 
         self.key = None
 
@@ -27,15 +26,16 @@ class AnimationComponent(Component):
 
         self.key = key
 
-    def next_frame(self):
+    def next_frame(self, dt):
         if not self.frozen:
-            self.frame += 1
-            if not self.frame % self.frame_time:
-                self.sprite_frame += 1
-            if self.sprite_frame == len(self.animations[self.key]):
-                self.sprite_frame = 0
+            self.t += dt
+            if self.t > self.dt:
+                self.frame += 1
+                self.t = 0
+            if self.frame == len(self.animations) - 1:
+                self.frame = 0
 
-        return self.animations[self.key][self.sprite_frame]
+        return self.animations[self.key][self.frame]
 
     def set_animation(self, key):
         if key != self.key:

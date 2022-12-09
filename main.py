@@ -11,7 +11,7 @@ from components.animation_component import AnimationComponent
 from managers.animation_manager import AnimationManager
 from managers.camera_manager import CameraManager
 from managers.control import Controller
-from managers.movement import MovementProcessor
+from managers.movement_manager import MovementManager
 from managers.scene_manager import SceneManager
 from utils.world import World
 from constants import *
@@ -22,6 +22,7 @@ if __name__ == "__main__":
     pygame.init()
 
     screen = pygame.display.set_mode(size=(SCREEN_WIDTH, SCREEN_HEIGHT))
+    clock = pygame.time.Clock()
 
     player = Entity(
         Sprite("assets/dude/right_0.png", trans_c=(255, 255, 255), offset=(8, 8)),
@@ -68,7 +69,7 @@ if __name__ == "__main__":
 
     player.add_component(player_animation)
 
-    animation_manager = AnimationManager()
+    animation_manager = AnimationManager(clock)
     animation_manager.add_entity(player)
 
     world = World(seed=123)
@@ -98,15 +99,15 @@ if __name__ == "__main__":
 
     control_manager = Controller(player)
 
-    movement_manager = MovementProcessor()
+    movement_manager = MovementManager()
     movement_manager.add_entity(player)
 
     # main game loop
     running = True
     while running:
         control_manager.update()
-        animation_manager.update()
         movement_manager.update()
+        animation_manager.update()
         scene_manager.update()
 
         if pygame.event.get(pygame.QUIT):

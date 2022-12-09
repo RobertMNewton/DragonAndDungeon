@@ -1,9 +1,9 @@
 from .manager import Manager
 
 
-class MovementProcessor(Manager):
+class MovementManager(Manager):
     def __init__(self):
-        super(MovementProcessor, self).__init__()
+        super(MovementManager, self).__init__()
 
         self.positions = []
         self.velocities = []
@@ -18,6 +18,11 @@ class MovementProcessor(Manager):
 
             self.velocities[i].x *= decay
             self.velocities[i].y *= decay
+
+            if self.velocities[i].x < 1:
+                self.velocities[i].x = 0
+            if self.velocities[i].y < 1:
+                self.velocities[i].y = 0
 
     def add_entity(self, entity):
         if entity.has_component("velocity") and entity.has_component("position"):
