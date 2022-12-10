@@ -25,6 +25,8 @@ class MapEditorManager(Manager):
             x = x / SCREEN_WIDTH * VIEW_WIDTH + cam_x
             y = y / SCREEN_HEIGHT * VIEW_HEIGHT + cam_y
 
+            print(self.world.map_data["0"][str(int(x // 16))][str(int(y // 16))])
+
             self.world.map_data["0"][str(int(x // 16))][str(int(y // 16))] = self.terrains[self.terrain_index]
             self.scene.change_position(0, int(x // 16), int(y // 16), self.world.get_spot_data((int(x // 16) * 16, int(y // 16) * 16)))
 
@@ -38,5 +40,3 @@ class MapEditorManager(Manager):
             self.terrain_index = len(self.terrains) - 1
         elif self.terrain_index == len(self.terrains):
             self.terrain_index = 0
-
-        print(self.terrains[self.terrain_index])
