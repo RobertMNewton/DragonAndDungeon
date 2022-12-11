@@ -5,6 +5,8 @@ from components.sprite import Sprite
 from components.velocity import Velocity
 from components.velocity_decay import VelocityDecay
 from components.control import Control
+from components.collision_box_component import CollisionBox
+from managers.collision_manager import CollisionManager
 from components.camera import CameraComponent
 from components.scene_component import SceneComponent
 from components.animation_component import AnimationComponent
@@ -29,6 +31,7 @@ if __name__ == "__main__":
         Position(0, 0, 1),
         Velocity(),
         Control(),
+        CollisionBox(bbox=(16, 32, 32)),
         VelocityDecay(decay=0.5)
     )
     player.add_tag("player")
@@ -69,6 +72,12 @@ if __name__ == "__main__":
 
     player.add_component(player_animation)
 
+    timmy = Entity(
+        Sprite("assets/timmy_the_goblin/still_1.png", trans_c=(255, 255, 255), size=(16, 32)),
+        Position(64, 12, 1),
+        CollisionBox((32, 32, 32))
+    )
+
     animation_manager = AnimationManager(clock)
     animation_manager.add_entity(player)
 
@@ -83,6 +92,8 @@ if __name__ == "__main__":
 
     scene_manager = SceneManager(scene, world)
     scene_manager.initialise_scene(player)
+
+    scene.get_component("scene").add_entity(timmy)
 
     camera = Entity()
     camera.add_component(
@@ -102,11 +113,16 @@ if __name__ == "__main__":
     movement_manager = MovementManager()
     movement_manager.add_entity(player)
 
+    collision_manager = CollisionManager()
+    collision_manager.add_entity(player)
+    collision_manager.add_entity(timmy)
+
     # main game loop
     running = True
     while running:
         control_manager.update()
         movement_manager.update()
+        collision_manager.update()
         animation_manager.update()
         scene_manager.update()
 
