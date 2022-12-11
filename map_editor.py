@@ -10,6 +10,7 @@ from components.scene_component import SceneComponent
 from components.animation_component import AnimationComponent
 from managers.animation_manager import AnimationManager
 from managers.camera_manager import CameraManager
+from managers.map_editor_manager import MapEditorManager
 from managers.control import Controller
 from managers.movement_manager import MovementManager
 from managers.scene_manager import SceneManager
@@ -24,53 +25,14 @@ if __name__ == "__main__":
     screen = pygame.display.set_mode(size=(SCREEN_WIDTH, SCREEN_HEIGHT))
     clock = pygame.time.Clock()
 
-    player = Entity(
-        Sprite("assets/dude/right_0.png", trans_c=(255, 255, 255), offset=(8, 8)),
+    god = Entity(
         Position(0, 0, 1),
         Velocity(),
         Control(),
         VelocityDecay(decay=0.5)
     )
-    player.add_tag("player")
-
-    player_animation = AnimationComponent()
-    player_animation.add_animation_from_paths(
-        "walk down",
-        [
-            "assets/dude/backwards_0.png",
-            "assets/dude/backwards_1.png",
-            "assets/dude/backwards_2.png"
-        ]
-    )
-    player_animation.add_animation_from_paths(
-        "walk up",
-        [
-            "assets/dude/forward_0.png",
-            "assets/dude/forward_1.png",
-            "assets/dude/forward_2.png"
-        ]
-    )
-    player_animation.add_animation_from_paths(
-        "walk left",
-        [
-            "assets/dude/left_0.png",
-            "assets/dude/left_1.png",
-            "assets/dude/left_2.png"
-        ]
-    )
-    player_animation.add_animation_from_paths(
-        "walk right",
-        [
-            "assets/dude/right_0.png",
-            "assets/dude/right_1.png",
-            "assets/dude/right_2.png"
-        ]
-    )
-
-    player.add_component(player_animation)
 
     animation_manager = AnimationManager(clock)
-    animation_manager.add_entity(player)
 
     world = World(seed=123)
 
@@ -82,7 +44,7 @@ if __name__ == "__main__":
     )
 
     scene_manager = SceneManager(scene, world)
-    scene_manager.initialise_scene(player)
+    scene_manager.initialise_scene(god)
 
     camera = Entity()
     camera.add_component(
@@ -95,20 +57,23 @@ if __name__ == "__main__":
         )
     )
 
-    camera_manager = CameraManager(camera, scene, player, world)
+    editor = MapEditorManager(camera, world, scene)
 
-    control_manager = Controller(player)
+    camera_manager = CameraManager(camera, scene, god, world)
+
+    control_manager = Controller(god)
 
     movement_manager = MovementManager()
-    movement_manager.add_entity(player)
+    movement_manager.add_entity(god)
 
     # main game loop
     running = True
     while running:
         control_manager.update()
-        movement_manager.update()
         animation_manager.update()
+        movement_manager.update()
         scene_manager.update()
+        editor.update()
 
         if pygame.event.get(pygame.QUIT):
             running = False

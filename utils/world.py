@@ -1,8 +1,9 @@
 import random
+import json
+from .terrain import Terrain
 from math import ceil, floor
 from entities.entity import Entity
 from components.position import Position
-from components.sprite import Sprite
 from math import cos, sin
 
 
@@ -12,6 +13,8 @@ class World:
             self.seed = int(random() * 10E15)
         else:
             self.seed = seed
+
+        self.map_data = json.load(open("assets/dev_map/map.json", "r"))
 
     def get_location_data(self, pos1, pos2):
         data = []
@@ -25,25 +28,22 @@ class World:
     def get_spot_data(self, pos):
         x, y = pos
 
-        random.seed(self.seed + cos(x) + sin(y) + x + y)
+        z = "0"
 
-        roll = random.random()
-        if roll < 0.75:
-            return self.create_tile(x, y, "assets/grassland_textures/grass_grassy.png")
-        elif roll < 0.85:
-            return self.create_tile(x, y, "assets/grassland_textures/grass_rock_small.png")
-        elif roll < 0.95:
-            return self.create_tile(x, y, "assets/grassland_textures/grass_rock_cluster_2.png")
-        else:
-            return self.create_tile(x, y, "assets/grassland_textures/grass_rock_cluster_1.png")
+        try:
+            sprite = Terrain.terrain_tiles_dict.get(self.map_data[z][str(x // 16)][str(y // 16)])
+            return self.create_tile(x, y, sprite)
+        except:
+            return self.create_tile(x, y, Terrain.null_tile)
 
-    def create_tile(self, x, y, texture):
+
+    def create_tile(self, x, y, sprite):
         tile = Entity()
 
         tile.add_tag("tile")
 
         tile.add_component(Position(x, y))
-        tile.add_component(Sprite(texture, trans_c=(255, 255, 255)))
+        tile.add_component(sprite)
 
         return tile
 
