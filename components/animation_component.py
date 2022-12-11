@@ -41,18 +41,16 @@ class AnimationComponent(Component):
         if key != self.key:
             self.key = key
             self.frame = 0
-            self.sprite_frame = 0
 
     def freeze(self, frame=None):
         self.frozen = True
         if frame:
-            self.sprite_frame = frame
+            self.frame = frame
         else:
-            self.sprite_frame = 0
+            self.frame = 0
 
     def unfreeze(self, frame=None):
         self.frozen = False
         if frame:
-            self.sprite_frame = frame
-        else:
-            self.sprite_frame = self.sprite_frame
+            self.frame = framea
+

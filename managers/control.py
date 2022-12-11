@@ -34,4 +34,4 @@ class Controller(Manager):
                 self.entity.get_component("animation").unfreeze()
         else:
             if self.entity.has_component("animation"):
-                self.entity.get_component("animation").freeze()
+                self.entity.get_component("animation").freeze(frame=0)
