@@ -1,4 +1,5 @@
 from component import *
+from typing import Optional
 
 
 class Entity:
@@ -11,9 +12,12 @@ class Entity:
 
         Entity.entities[self.id] = self
 
+        self.components = []
         self.add_components(*components)
 
     def __del__(self):
+        for component in self.components:
+            getattr(self, component).pop_data(self.id)
         Entity.entities.pop(self.id)
 
     def add_component(self, component: Component) -> None:
@@ -23,3 +27,12 @@ class Entity:
     def add_components(self, *components: list[Component]) -> None:
         for component in components:
             self.add_component(component)
+            self.components.append(component.__class__.__name__.lower())
+
+    def pop_component(self, component: Optional[str, Component]) -> None:
+        getattr(self, str(component)).pop_data(self.id)
+        delattr(self, str(component))
+
+    def pop_components(self, components: list[Optional[str, Component]]):
+        for component in components:
+            self.pop_component(components)

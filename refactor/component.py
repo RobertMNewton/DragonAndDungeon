@@ -8,6 +8,10 @@ class Component:
     """
     data = {}
 
+    @property
+    def __str__(self):
+        return self.__class__.__name__
+
     @classmethod
     def add_data(cls, eid: int, data: object) -> None:
         """
@@ -87,6 +91,27 @@ class Vector(Component):
 class Position(Vector):
     """
     Component for storing position data
+    """
+    data = {}
+
+
+class Velocity(Vector):
+    """
+    Component for storing velocity data
+    """
+    data = {}
+
+
+class Acceleration(Vector):
+    """
+    Component for storing acceleration data
+    """
+    data = {}
+
+
+class Force(Vector):
+    """
+    Component for storing force data
     """
     data = {}
 
