@@ -36,3 +36,21 @@ class Entity:
     def pop_components(self, components: list[Optional[str, Component]]):
         for component in components:
             self.pop_component(components)
+
+
+class EntityGroup:
+    """
+    Class for holding groups of entities
+    """
+    def __init__(self, *entities):
+        self.entities = []
+
+        for entity in entities:
+            self.entities.append(entity)
+
+    def add_entity(self, entity):
+        self.entities.append(entity)
+
+    def add_entities(self, *entities):
+        for entity in entities:
+            self.add_entity(entity)
