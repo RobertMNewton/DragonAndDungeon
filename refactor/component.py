@@ -1,3 +1,4 @@
+import pygame
 from math import sqrt
 
 
@@ -113,3 +114,78 @@ class Box(Component):
         else:
             setattr(self, "height", self.p2.x - self.p1.x)
             return self.get_width()
+
+
+class CollisionBox(Box):
+    """
+    Component for collision box data
+    """
+    data = {}
+
+
+class Sprite(Component):
+    """
+    Component for Sprite image data
+    """
+    data = {}
+
+    def __init__(self, surface: pygame.Surface = None):
+        super(Sprite, self).__init__()
+
+        if surface:
+            self.surface = surface
+        else:
+            self.surface = pygame.Surface((0, 0))
+
+    def set_surface(self, surface: pygame.Surface):
+        """
+        Sets the display surface of sprite
+        :type surface: Pygame surface
+        """
+        self.surface = surface
+
+
+class Animation(Component):
+    """
+    Component for storing animation data
+    """
+    data = {}
+
+    def __init__(self) -> None:
+        super(Animation, self).__init__()
+
+        self.animations = {}
+        self.current_animation = None
+
+        self.current_frame = 0
+
+        self.t = 0
+        self.frozen = False
+
+    def add_animation_from_path(self, info: dict) -> None:
+        if info['name'] not in self.animations.keys():
+            self.animations[info['name']] = {
+                "frames": [pygame.image.load(path) for path in info['paths']],
+                "times": info['times']
+            }
+
+    def set_animation(self, name: str, frame: int = None) -> None:
+        try:
+            self.current_animation = name
+            if frame:
+                self.current_frame = frame
+        except:
+            raise KeyError(f"Animation Object {self.__name__} does not have key {name}")
+
+    def update_frame(self, dt: int) -> None:
+        self.t += dt
+        t = self.t % self.animations[self.current_animation]["times"][-1]
+        for i in range(self.current_frame, len(self.animations[self.current_animation]["frames"]) - 1):
+            t1 = self.animations[self.current_animation]["times"][i]
+            t2 = self.animations[self.current_animation]["times"][i + 1]
+
+            if t1 < t < t2:
+                self.current_frame = i
+
+                return
+        self.current_frame = -1
