@@ -18,10 +18,10 @@ class CollisionManager(Manager):
                 wj, lj, hj = self.entities[j].get_component("collision box").get_bbox()
 
                 # left side of i and right side of j
-                if xj + oxj > xi + oxi > xj + oxj + wj:
+                if xj + oxj < xi + oxi < xj + oxj + wj:
                     print("LEFT COLLISION")
                 # right side of i and left side of j
-                elif xj + oxj + wj > xi + oxi + wj > xj + oxj:
+                elif xj + oxj < xi + oxi + wj < xj + oxj + wj:
                     print("RIGHT COLLISION")
                 # top side of i and bottom side of j
                 elif yi + oyi > yj + oyj + lj:
